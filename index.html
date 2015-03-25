@@ -7,10 +7,12 @@
 		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script src="facilities.js"></script>
 		<script src="incidents.js"></script>
+		<script src="tickets.js"></script>
 	</head>
 	<body>
 		<div id="map"></div>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+		<script src="Leaflet.MakiMarkers.js"></script>
 		<script>
 			console.log(facilities);
 			var map = L.map('map').setView([42.052, -87.674], 16);
@@ -21,6 +23,9 @@
 					'Imagery © <a href="http://mapbox.com">Mapbox</a>',
 				id: 'examples.map-i875mjb7'
 			}).addTo(map);
+
+			var icon1 = L.MakiMarkers.icon({icon: "rocket", color: "#b0b", size: "s"});
+			var icon2 = L.MakiMarkers.icon({icon: "rocket", color: "#12a", size: "s"});
 
 			for (i in facilities) {
 				facilities[i]['points'] = facilities[i]['points'].split("|");
@@ -33,7 +38,11 @@
 			}
 
 			for (i in incidents) {
-				L.marker([incidents[i]['lat'], incidents[i]['lng']]).addTo(map).bindPopup(incidents[i]['Incident Type']); //.openPopup();
+				L.marker([incidents[i]['lat'], incidents[i]['lng']], {icon: icon1}).addTo(map).bindPopup(incidents[i]['Incident Type']); //.openPopup();
+			}
+
+			for (i in tickets) {
+				L.marker([tickets[i]['lat'], tickets[i]['lng']], {icon: icon2}).addTo(map).bindPopup(tickets[i]['Description']); //.openPopup();
 			}
 
 			// #562461
