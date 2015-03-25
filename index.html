@@ -6,13 +6,14 @@
 		</style>
 		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script src="facilities.js"></script>
+		<script src="incidents.js"></script>
 	</head>
 	<body>
 		<div id="map"></div>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 		<script>
 			console.log(facilities);
-			var map = L.map('map').setView([42.052, -87.674], 15);
+			var map = L.map('map').setView([42.052, -87.674], 16);
 			L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
 				maxZoom: 18,
 				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -29,8 +30,13 @@
 					facilities[i]['points'][j][1] = parseFloat(facilities[i]['points'][j][1]);
 				}
 				L.polygon(facilities[i]['points'], {stroke: false, fillColor: "#8D7093", fillOpacity: 1}).addTo(map).bindPopup(facilities[i]['facilityname']);
-				// #562461
 			}
+
+			for (i in incidents) {
+				L.marker([incidents[i]['lat'], incidents[i]['lng']]).addTo(map).bindPopup(incidents[i]['Incident Type']); //.openPopup();
+			}
+
+			// #562461
 
 			// L.polygon([
 			// 	[51.509, -0.08],
