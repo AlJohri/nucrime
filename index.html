@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+		<style>
+			#map { height: 600px; }
+		</style>
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="facilities.js"></script>
+	</head>
+	<body>
+		<div id="map"></div>
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+		<script>
+			console.log(facilities);
+			var map = L.map('map').setView([42.052, -87.674], 15);
+			L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+				maxZoom: 18,
+				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+					'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+					'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+				id: 'examples.map-i875mjb7'
+			}).addTo(map);
+
+			for (i in facilities) {
+				facilities[i]['points'] = facilities[i]['points'].split("|");
+				for (j in facilities[i]['points']) {
+					facilities[i]['points'][j] = facilities[i]['points'][j].split(",");
+					facilities[i]['points'][j][0] = parseFloat(facilities[i]['points'][j][0]);
+					facilities[i]['points'][j][1] = parseFloat(facilities[i]['points'][j][1]);
+				}
+				L.polygon(facilities[i]['points'], {stroke: false, fillColor: "#8D7093", fillOpacity: 1}).addTo(map).bindPopup(facilities[i]['facilityname']);
+				// #562461
+			}
+
+			// L.polygon([
+			// 	[51.509, -0.08],
+			// 	[51.503, -0.06],
+			// 	[51.51, -0.047]
+			// ]).addTo(map).bindPopup("I am a polygon.");
+
+
+			// L.marker([51.5, -0.09]).addTo(map)
+			// 	.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+
+			// L.circle([51.508, -0.11], 500, {
+			// 	color: 'red',
+			// 	fillColor: '#f03',
+			// 	fillOpacity: 0.5
+			// }).addTo(map).bindPopup("I am a circle.");
+
+			// var popup = L.popup();
+
+			// function onMapClick(e) {
+			// 	popup
+			// 		.setLatLng(e.latlng)
+			// 		.setContent("You clicked the map at " + e.latlng.toString())
+			// 		.openOn(map);
+			// }
+
+			// map.on('click', onMapClick);
+
+		</script>
+	</body>
+</html>
