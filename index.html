@@ -38,11 +38,11 @@
 			}
 
 			for (i in incidents) {
-				L.marker([incidents[i]['lat'], incidents[i]['lng']], {icon: icon1}).addTo(map).bindPopup(incidents[i]['Incident Type']); //.openPopup();
+				L.marker([incidents[i]['lat'], incidents[i]['lng']], {icon: icon1}).addTo(map).bindPopup(incidents[i]["Date & Time Occurred Start"] + " | " + incidents[i]['Incident Type'] + " | " + incidents[i]['Criminal Offense']);
 			}
 
 			for (i in tickets) {
-				L.marker([tickets[i]['lat'], tickets[i]['lng']], {icon: icon2}).addTo(map).bindPopup(tickets[i]['Description']); //.openPopup();
+				L.marker([tickets[i]['lat'], tickets[i]['lng']], {icon: icon2}).addTo(map).bindPopup(tickets[i]["Ticket Date and Time"] + " | " + tickets[i]['Description']);
 			}
 
 			// #562461
